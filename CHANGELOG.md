@@ -1,13 +1,20 @@
+## [2.0.4] (Unreleased)
+
+- Improved internal `findRenderObject` calls.
+
 ## [2.0.3]
+
 - Feature [#148](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/148) - Add feasibility to add `textDirection` of `title` and `description`.
 - Feature [#272](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/272) - Add barrier click callback.
 - Fixed [#360](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/360) - child constructor invocation to get rid out of flutter lint warning.
 
 ## [2.0.2]
+
 - Fixed [#335](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/335) - Flutter inspector makes screen grey
 - Fixed [#346](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/346) - Dont respond to any clicks in target.
 
 ## [2.0.1]
+
 - Feature [#306](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/pull/306) - Added support of manual vertical tooltip position.
 - Fixed [#318](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/318) - Add support for enable/disable showcase globally.
 - Fixed [#316](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/316) - Add title and description padding
@@ -17,6 +24,7 @@
 - Add PR title validation workflow
 
 ## [2.0.0+1]
+
 - Fixed [#237](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/261) - Feature added to enable/disable default gesture of ShowcaseView child using `disableDefaultTargetGestures` parameter
 - Fixed [#206](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/206) - getLeft and getRight return wrong result when in middle with a little offset
 - Fixed issue of duplicate key found in example.
@@ -27,6 +35,7 @@
 - Updated parameter name of `ShowCaseWidget` and `Showcase` class
 
 ## [1.1.8]
+
 - Fixed [#237](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/237) - Feature added to enable/disable overlay click using `disableBarrierInteraction` parameters
 - ToolTip BorderRadius setting support
 
@@ -83,7 +92,7 @@
 
 ## [1.0.0]
 
-- Fixed [#95](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/95) - Migrated to null safety.  
+- Fixed [#95](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/95) - Migrated to null safety.
 - Fixed [#74](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/74) - Long text description is hidden.
 - Fixed [#76](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/76) - Overlay is not displayed properly on web.
 - Fixed [#81](https://github.com/SimformSolutionsPvtLtd/flutter_showcaseview/issues/81) - Crash on hot reload.
@@ -98,8 +107,8 @@
 
 ## [0.1.5]
 
-* Refactor usage of deprecated methods
-* Add support for `disableAnimation` option.
+- Refactor usage of deprecated methods
+- Add support for `disableAnimation` option.
 
 ## [0.1.4] - Added onFinish method [#17](https://github.com/simformsolutions/flutter_showcaseview/issues/17).
 
@@ -114,4 +123,4 @@ Added onTargetTap callback feature [#10](https://github.com/simformsolutions/flu
 
 ## [0.1.0] - Initial release on 22nd Augest, 2019.
 
-* First release.
+- First release.

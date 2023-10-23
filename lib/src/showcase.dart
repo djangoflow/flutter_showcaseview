@@ -99,6 +99,11 @@ class Showcase extends StatefulWidget {
   /// Custom tooltip widget when [Showcase.withWidget] is used.
   final Widget? container;
 
+  /// Custom tooltip widget builder when [Showcase.withWidget] is used.
+  /// it provides the left offset position based on
+  /// the target center
+  final Widget Function(double)? containerBuilder;
+
   /// Defines background color for tooltip widget.
   ///
   /// Default to [Colors.white]
@@ -244,6 +249,10 @@ class Showcase extends StatefulWidget {
   /// will still provide a callback.
   final VoidCallback? onBarrierClick;
 
+  /// A way to adjust the target offset calculation
+  /// if you limited the app size
+  final double adjustWidthSize;
+
   const Showcase({
     required this.key,
     required this.description,
@@ -288,9 +297,11 @@ class Showcase extends StatefulWidget {
     this.titleTextDirection,
     this.descriptionTextDirection,
     this.onBarrierClick,
+    this.adjustWidthSize = 0.0,
   })  : height = null,
         width = null,
         container = null,
+        containerBuilder = null,
         assert(overlayOpacity >= 0.0 && overlayOpacity <= 1.0,
             "overlay opacity must be between 0 and 1."),
         assert(onTargetClick == null || disposeOnTap != null,
@@ -303,6 +314,7 @@ class Showcase extends StatefulWidget {
     required this.height,
     required this.width,
     required this.container,
+    this.containerBuilder,
     required this.child,
     this.targetShapeBorder = const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
@@ -325,6 +337,7 @@ class Showcase extends StatefulWidget {
     this.disableDefaultTargetGestures = false,
     this.tooltipPosition,
     this.onBarrierClick,
+    this.adjustWidthSize = 0.0,
   })  : showArrow = false,
         onToolTipClick = null,
         scaleAnimationDuration = const Duration(milliseconds: 300),
@@ -373,8 +386,17 @@ class _ShowcaseState extends State<Showcase> {
         padding: widget.targetPadding,
         screenWidth: MediaQuery.of(context).size.width,
         screenHeight: MediaQuery.of(context).size.height,
+        adjustWidthSize: widget.adjustWidthSize,
       );
       showOverlay();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant Showcase oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.adjustWidthSize != oldWidget.adjustWidthSize) {
+      setState(() {});
     }
   }
 
@@ -415,16 +437,23 @@ class _ShowcaseState extends State<Showcase> {
     if (_enableShowcase) {
       return AnchoredOverlay(
         overlayBuilder: (context, rectBound, offset) {
-          final size = MediaQuery.of(context).size;
+          final screenSize = MediaQuery.of(context).size;
           position = GetPosition(
             key: widget.key,
             padding: widget.targetPadding,
-            screenWidth: size.width,
-            screenHeight: size.height,
+            screenWidth: screenSize.width,
+            screenHeight: screenSize.height,
+            adjustWidthSize: widget.adjustWidthSize,
           );
-          return buildOverlayOnTarget(offset, rectBound.size, rectBound, size);
+          return _buildOverlayOnTarget(
+            offset,
+            rectBound.size,
+            rectBound,
+            screenSize,
+          );
         },
         showOverlay: true,
+        adjustWidthSize: widget.adjustWidthSize,
         child: widget.child,
       );
     }
@@ -470,7 +499,7 @@ class _ShowcaseState extends State<Showcase> {
     _isTooltipDismissed = false;
   }
 
-  Widget buildOverlayOnTarget(
+  Widget _buildOverlayOnTarget(
     Offset offset,
     Size size,
     Rect rectBound,
@@ -551,6 +580,7 @@ class _ShowcaseState extends State<Showcase> {
             titleTextStyle: widget.titleTextStyle,
             descTextStyle: widget.descTextStyle,
             container: widget.container,
+            containerBuilder: widget.containerBuilder,
             tooltipBackgroundColor: widget.tooltipBackgroundColor,
             textColor: widget.textColor,
             showArrow: widget.showArrow,
